@@ -5,17 +5,8 @@ import { PropTypes } from 'prop-types';
 const Cards = ({ players }) => {
   return (
     <React.Fragment>
-      {players.map((players, index) => (
-        <Player
-          {...players}
-          name={players.name}
-          armor={players.armor}
-          hp={players.hp}
-          init={players.init}
-          damage={players.damage}
-          key={players.id.toString()}
-          index={index}
-        />
+      {players.map((player, index) => (
+        <Player player={player} />
       ))}
     </React.Fragment>
   );
