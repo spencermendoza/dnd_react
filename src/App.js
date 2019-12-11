@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Cards from './Cards';
-import { Provider } from './Context';
 
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   state = {
     players: [
       {
-        name: "Cronan",
+        name: 'Cronan',
         armor: 18,
         hp: 158,
         init: 18,
@@ -17,7 +15,7 @@ class App extends Component {
         id: 0
       },
       {
-        name: "Balazar",
+        name: 'Balazar',
         armor: 20,
         hp: 127,
         init: 15,
@@ -25,7 +23,7 @@ class App extends Component {
         id: 1
       },
       {
-        name: "Marsk",
+        name: 'Marsk',
         armor: 19,
         hp: 114,
         init: 7,
@@ -33,7 +31,7 @@ class App extends Component {
         id: 2
       },
       {
-        name: "Barri",
+        name: 'Barri',
         armor: 15,
         hp: 69,
         init: 14,
@@ -41,18 +39,13 @@ class App extends Component {
         id: 3
       }
     ]
-  }
+  };
 
   render() {
     return (
-      <Provider value={{
-        players: this.state.players,
-        actions: {}
-      }}>
-        <div>
-          <Cards></Cards>
-        </div>
-      </Provider>
+      <div>
+        <Cards players={this.state.players} />
+      </div>
     );
   }
 }
