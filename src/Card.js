@@ -7,47 +7,59 @@ import styled from 'styled-components';
 // the 'margin-top' property below. Maybe.
 const CardWrapper = styled.div`
   background-color: #ffffff;
-  border: 1px solid purple;
   flex: flex-basis;
   flex-basis: 10rem;
   justify-content: space-evenly;
   margin-top: 1rem;
   font-size: 1.5em;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+`;
 
-  .details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }
+const CardDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
 
-  .detail {
-    border-bottom: 1px solid black;
-    flex: flex-basis;
-    flex-basis: 3em;
+const CardDetail = styled.div`
+  border-bottom: 1px solid #dcdcdc;
+  flex: flex-basis;
+  flex-basis: 3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 15px 5px;
 
-    & :first-of-type {
-      font-weight: bold;
-    }
-
-    & :last-of-type {
-      text-align: right;
-    }
+  &:last-child {
+    border-bottom: none;
   }
 `;
 
+const CardDetailName = styled.span`
+  flex: flex-shrink;
+  font-weight: bold;
+`;
+
+const CardDetailValue = styled.span`
+  flex: flex-grow;
+`;
+
 const Card = ({ player, index }) => {
-  console.log('props.index?', index);
-  const playerDetails = ['name', 'armor', 'hp', 'init', 'damage'];
+  const playerProperties = ['armor', 'hp', 'init', 'damage'];
   return (
     <CardWrapper>
-      <div className="details">
-        {playerDetails.map(detail => (
-          <div className="detail" key={detail}>
-            <span>{detail}</span>
-            <span>{player[detail]}</span>
-          </div>
+      <CardDetails>
+        <CardDetail>
+          <CardDetailName>Name</CardDetailName>
+          <CardDetailValue>{player.name}</CardDetailValue>
+        </CardDetail>
+        {playerProperties.map(property => (
+          <CardDetail key={property}>
+            <CardDetailName>{property}</CardDetailName>
+            <CardDetailValue>{player[property]}</CardDetailValue>
+          </CardDetail>
         ))}
-      </div>
+      </CardDetails>
     </CardWrapper>
   );
 };
