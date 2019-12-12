@@ -3,19 +3,21 @@ import Card from './Card';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 
-const Container = styled.div`
-  border: 2px solid blue;
-  width: 100%;
-  padding: 15px;
+const CardContainerWrapper = styled.div`
+  background-color: #e8e8e8;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  padding: 0 3%;
 `;
 
 const CardContainer = ({ players }) => {
   return (
-    <Container>
+    <CardContainerWrapper>
       {players.map((player, index) => (
-        <Card player={player} />
+        <Card player={player} key={index} index={index} />
       ))}
-    </Container>
+    </CardContainerWrapper>
   );
 };
 
