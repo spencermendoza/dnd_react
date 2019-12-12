@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Player = ({ player }) => {
+const Card = ({ player }) => {
   return (
     <div className="player">
       <div>
@@ -18,7 +18,7 @@ const Player = ({ player }) => {
 // TODO: Bring in typescript or research PropTypes
 // so that we can enforce the presence of required
 // properties on 'player'.
-Player.propTypes = {
+Card.propTypes = {
   name: PropTypes.string,
   armor: PropTypes.number,
   hp: PropTypes.number,
@@ -26,4 +26,4 @@ Player.propTypes = {
   damage: PropTypes.number
 };
 
-export default Player;
+export default Card;
