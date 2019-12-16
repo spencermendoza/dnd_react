@@ -3,5 +3,6 @@ module.exports = {
   semi: true,
   singleQuote: true,
   bracketSpacing: true,
-  parser: 'typescript'
+  parser: 'typescript',
+  spaces: 2
 };

@@ -44,8 +44,10 @@ const CardDetailValue = styled.span`
   flex: flex-grow;
 `;
 
+// TODO: Replace the hardcoded array of strings and replace
+// it with a Player -> Card mapping function or class.
+const playerProperties = ['armor', 'init', 'hp', 'damage'];
 const Card = ({ player, index }) => {
-  const playerProperties = ['armor', 'hp', 'init', 'damage'];
   return (
     <CardWrapper>
       <CardDetails>
@@ -54,7 +56,7 @@ const Card = ({ player, index }) => {
           <CardDetailValue>{player.name}</CardDetailValue>
         </CardDetail>
         {playerProperties.map(property => (
-          <CardDetail key={property}>
+          <CardDetail key={property + index}>
             <CardDetailName>{property}</CardDetailName>
             <CardDetailValue>{player[property]}</CardDetailValue>
           </CardDetail>

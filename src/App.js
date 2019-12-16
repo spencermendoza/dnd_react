@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CardContainer from './CardContainer';
+import TurnTimer from './TurnTimer';
 
 import './App.css';
 
@@ -48,6 +49,7 @@ class App extends Component {
     return (
       <div>
         <CardContainer players={this.state.players} />
+        <TurnTimer players={this.state.players} />
       </div>
     );
   }

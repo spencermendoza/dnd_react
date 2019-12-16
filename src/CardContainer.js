@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './Card';
 import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
+import PlayerCard from './PlayerCard';
 
 const CardContainerWrapper = styled.div`
   background-color: #e8e8e8;
@@ -14,8 +15,8 @@ const CardContainerWrapper = styled.div`
 const CardContainer = ({ players }) => {
   return (
     <CardContainerWrapper>
-      {players.map((player, index) => (
-        <Card player={player} key={index} index={index} />
+      {players.map((player, props) => (
+        <PlayerCard {...player} key={player.id.toString()} />
       ))}
     </CardContainerWrapper>
   );
