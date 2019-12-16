@@ -10,6 +10,10 @@ const CardContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 3%;
+
+  & > * {
+    margin-top: 15px;
+  }
 `;
 
 const CardContainer = ({ players }) => {
