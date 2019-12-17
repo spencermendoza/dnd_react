@@ -7,13 +7,15 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    // TODO: Find out if we gain anything by using a hook for state here,
+    // or if declaring our initial state in the constructor is better.
     this.state = {
       players: [
         {
           name: 'Cronan',
           armor: 18,
           hp: 158,
-          init: 18,
+          initValue: 18,
           damage: 72,
           id: 0
         },
@@ -21,7 +23,7 @@ class App extends Component {
           name: 'Balazar',
           armor: 20,
           hp: 127,
-          init: 15,
+          initValue: 15,
           damage: 32,
           id: 1
         },
@@ -29,7 +31,7 @@ class App extends Component {
           name: 'Marsk',
           armor: 19,
           hp: 114,
-          init: 7,
+          initValue: 7,
           damage: 56,
           id: 2
         },
@@ -37,7 +39,7 @@ class App extends Component {
           name: 'Barri',
           armor: 15,
           hp: 69,
-          init: 14,
+          initValue: 14,
           damage: 12,
           id: 3
         }

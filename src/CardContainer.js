@@ -1,28 +1,28 @@
 import React from 'react';
-import Card from './Card';
 import { PropTypes } from 'prop-types';
-import styled from 'styled-components';
+import Box from '@material-ui/core/Box';
 import PlayerCard from './PlayerCard';
+import { makeStyles } from '@material-ui/core/styles';
 
-const CardContainerWrapper = styled.div`
-  background-color: #e8e8e8;
-  border: 1px solid blue;
-  display: flex;
-  flex-direction: column;
-  padding: 0 3%;
-
-  & > * {
-    margin-top: 15px;
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column'
   }
-`;
+});
 
 const CardContainer = ({ players }) => {
+  const classes = useStyles();
   return (
-    <CardContainerWrapper>
-      {players.map((player, props) => (
-        <PlayerCard {...player} key={player.id.toString()} />
+    <Box className={classes.container}>
+      {players.map(player => (
+        <PlayerCard
+          {...player}
+          key={player.id}
+          onEditClick={() => console.log('this has been a test')}
+        />
       ))}
-    </CardContainerWrapper>
+    </Box>
   );
 };
 

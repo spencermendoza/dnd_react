@@ -1,3 +1,4 @@
+/* TODO: Move this to the component and use the makeStyles hook from material-ui. */
 body {
   box-sizing: border-box;
   font-size: 10px;
