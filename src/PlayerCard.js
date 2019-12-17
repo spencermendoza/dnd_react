@@ -12,17 +12,25 @@ const useStyles = makeStyles({
   // and make sure that our styles are following their system.
   card: {
     minWidth: 275,
-    minHeight: 300
+    minHeight: 300,
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column'
   },
   title: {
     color: 'pink',
     borderBottom: '1px solid pink',
     fontSize: 18
+  },
+  content: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column'
   }
 });
 
 // TODO: Agree on using props as a parameter name
-//          function MyComponent(props) {
+//          function MyComponent(props) {                                  <--- I like this one
 //       OR destructuring the props object in the function signature to get parameter names.
 //          function MyComponent({propA, propB ... propZ}) {
 //
@@ -35,17 +43,17 @@ const PlayerCard = props => {
   const onEditClick = props.onEditClick ? props.onEditClick : function noop() {};
   return (
     <Card className={classes.card}>
-      <CardContent>
+      <CardContent className={classes.content}>
         <Typography variant="h1" className={classes.title} color="textSecondary" gutterBottom>
-          {props.name}
+          {props.player.name}
         </Typography>
-        <Typography>Init: {props.initValue}</Typography>
-        <Typography>Hp: {props.hp}</Typography>
-        <Typography>Armor: {props.armor}</Typography>
-        <Typography>Damage: {props.damage}</Typography>
+        <Typography>Init: {props.player.initValue}</Typography>
+        <Typography>Hp: {props.player.hp}</Typography>
+        <Typography>Armor: {props.player.armor}</Typography>
+        <Typography>Damage: {props.player.damage}</Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => onEditClick(props)}>Edit</Button>
+        <Button onClick={() => onEditClick(props.player)}>Edit</Button>
       </CardActions>
     </Card>
   );
@@ -56,11 +64,13 @@ const PlayerCard = props => {
 //       using React PropTypes if we're going to use
 //       TypeScript.
 PlayerCard.propTypes = {
-  name: PropTypes.string,
-  initValue: PropTypes.number,
-  armor: PropTypes.number,
-  damage: PropTypes.number,
-  id: PropTypes.number,
+  player: {
+    name: PropTypes.string,
+    initValue: PropTypes.number,
+    armor: PropTypes.number,
+    damage: PropTypes.number,
+    id: PropTypes.number
+  },
   onEditClick: PropTypes.func
 };
 
