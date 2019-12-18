@@ -47,7 +47,7 @@ const PlayerCard = props => {
         <Typography variant="h1" className={classes.title} color="textSecondary" gutterBottom>
           {props.player.name}
         </Typography>
-        <Typography>Init: {props.player.initValue}</Typography>
+        <Typography>Init: {props.player.initiative}</Typography>
         <Typography>Hp: {props.player.hp}</Typography>
         <Typography>Armor: {props.player.armor}</Typography>
         <Typography>Damage: {props.player.damage}</Typography>
@@ -66,7 +66,7 @@ const PlayerCard = props => {
 PlayerCard.propTypes = {
   player: {
     name: PropTypes.string,
-    initValue: PropTypes.number,
+    initiative: PropTypes.number,
     armor: PropTypes.number,
     damage: PropTypes.number,
     id: PropTypes.number

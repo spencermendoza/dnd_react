@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import PlayerCard from './PlayerCard';
+import PlayerFormDialog from './PlayerFormDialog';
 
 class CardContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      dialogOpen: false,
+      player: {},
       players: [
         {
           name: 'Cronan',
           armor: 18,
           hp: 158,
-          initValue: 18,
+          initiative: 18,
           damage: 72,
           id: 0
         },
@@ -20,7 +23,7 @@ class CardContainer extends Component {
           name: 'Balazar',
           armor: 20,
           hp: 127,
-          initValue: 15,
+          initiative: 15,
           damage: 32,
           id: 1
         },
@@ -28,7 +31,7 @@ class CardContainer extends Component {
           name: 'Marsk',
           armor: 19,
           hp: 114,
-          initValue: 7,
+          initiative: 7,
           damage: 56,
           id: 2
         },
@@ -36,7 +39,7 @@ class CardContainer extends Component {
           name: 'Barri',
           armor: 15,
           hp: 69,
-          initValue: 14,
+          initiative: 14,
           damage: 12,
           id: 3
         }
@@ -45,16 +48,33 @@ class CardContainer extends Component {
   }
 
   handleEditClick = player => {
-    console.log('player?', player);
+    this.setState({ player, dialogOpen: true });
+  };
+
+  handleCloseClick = () => {
+    // TODO: Make sure we update the players array
+    // with our newly edited player object.
+    this.setState({ dialogOpen: false });
   };
 
   render() {
     return (
-      <Box display="flex" flexDirection="column" justifyContent="center">
-        {this.state.players.map(player => (
-          <PlayerCard player={player} key={player.id} onEditClick={p => this.handleEditClick(p)} />
-        ))}
-      </Box>
+      <>
+        <Box display="flex" flexDirection="column" justifyContent="center">
+          {this.state.players.map(player => (
+            <PlayerCard
+              player={player}
+              key={player.id}
+              onEditClick={p => this.handleEditClick(p)}
+            />
+          ))}
+        </Box>
+        <PlayerFormDialog
+          player={this.state.player}
+          open={this.state.dialogOpen}
+          onCloseClick={p => this.handleCloseClick()}
+        />
+      </>
     );
   }
 }
