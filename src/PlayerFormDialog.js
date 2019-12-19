@@ -8,7 +8,10 @@ const PlayerFormDialog = ({ player, open, onCloseClick }) => {
   return (
     <Dialog open={open}>
       <DialogTitle>Edit: {player.name}</DialogTitle>
+
+      {/* TODO: Add a form that allows users to edit Players. */}
       <Button onClick={e => onCloseClick(e)}>Close</Button>
+      {/* TODO: Add a button that 'saves' the updates to the given Player on click. */}
     </Dialog>
   );
 };
