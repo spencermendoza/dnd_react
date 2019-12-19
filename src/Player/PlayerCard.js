@@ -64,13 +64,13 @@ const PlayerCard = props => {
 //       using React PropTypes if we're going to use
 //       TypeScript.
 PlayerCard.propTypes = {
-  player: {
+  player: PropTypes.shape({
     name: PropTypes.string,
     initiative: PropTypes.number,
     armor: PropTypes.number,
     damage: PropTypes.number,
     id: PropTypes.number
-  },
+  }),
   onEditClick: PropTypes.func
 };
 

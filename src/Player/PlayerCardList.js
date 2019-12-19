@@ -51,10 +51,12 @@ class PlayerCardList extends Component {
     this.setState({ player, dialogOpen: true });
   };
 
-  handleCloseClick = () => {
-    // TODO: Make sure we update the players array
-    // with our newly edited player object.
+  handleDialogClose = () => {
     this.setState({ dialogOpen: false });
+  };
+
+  handleDialogConfirm = player => {
+    console.log('player from dialog', player);
   };
 
   render() {
@@ -62,17 +64,14 @@ class PlayerCardList extends Component {
       <>
         <Box display="flex" flexDirection="column" justifyContent="center">
           {this.state.players.map(player => (
-            <PlayerCard
-              player={player}
-              key={player.id}
-              onEditClick={p => this.handleEditClick(p)}
-            />
+            <PlayerCard player={player} key={player.id} onEditClick={this.handleEditClick} />
           ))}
         </Box>
         <PlayerFormDialog
           player={this.state.player}
           open={this.state.dialogOpen}
-          onCloseClick={p => this.handleCloseClick()}
+          onClose={this.handleDialogClose}
+          onConfirm={this.handleDialogConfirm}
         />
       </>
     );
