@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CardContainer from './CardContainer';
-import TurnTimer from './TurnTimer';
+import PlayerCardList from '../Player/PlayerCardList';
+import TurnTimer from '../TurnTimer/TurnTimer';
 
 import './App.css';
 
@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <CardContainer />
+        <PlayerCardList />
         {/* <TurnTimer /> */}
       </div>
     );

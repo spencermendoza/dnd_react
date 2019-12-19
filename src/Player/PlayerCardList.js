@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import PlayerCard from './PlayerCard';
 import PlayerFormDialog from './PlayerFormDialog';
 
-class CardContainer extends Component {
+class PlayerCardList extends Component {
   constructor(props) {
     super(props);
 
@@ -79,4 +79,4 @@ class CardContainer extends Component {
   }
 }
 
-export default CardContainer;
+export default PlayerCardList;
