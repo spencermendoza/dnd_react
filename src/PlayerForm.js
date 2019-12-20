@@ -13,6 +13,11 @@ const PlayerForm = ({ player }) => {
     const propName = playerProps[i];
     console.log(propName);
   }
+
+  //EXPLAIN: tried to write this in a way that wasn't dependant on
+  //the props being the same each time. It's not working but I can come
+  //back to this later.
+
   // return (
   //   <form noValidate autoComplete="off">
   //     <TextField id="outlined-basic" label={propname + ': ' + player.propName} variant="outlined" />
