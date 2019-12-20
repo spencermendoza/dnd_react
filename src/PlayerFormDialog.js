@@ -3,11 +3,13 @@ import { PropTypes } from 'prop-types';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
+import PlayerForm from './PlayerForm';
 
 const PlayerFormDialog = ({ player, open, onCloseClick }) => {
   return (
     <Dialog open={open}>
-      <DialogTitle>Edit: {player.name}</DialogTitle>
+      {/* <DialogTitle>Edit: {player.name}</DialogTitle> */}
+      <PlayerForm player={player} />
 
       {/* TODO: Add a form that allows users to edit Players. */}
       <Button onClick={e => onCloseClick(e)}>Close</Button>
