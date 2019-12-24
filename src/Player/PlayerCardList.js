@@ -3,13 +3,14 @@ import Box from '@material-ui/core/Box';
 import PlayerCard from './PlayerCard';
 import PlayerFormDialog from './PlayerFormDialog';
 
-class CardContainer extends Component {
+class PlayerCardList extends Component {
   constructor(props) {
     super(props);
 
+    // TODO: Apply sorting function.
     this.state = {
       dialogOpen: false,
-      player: {},
+      player: { name: '', armor: 0, initiative: 0, hp: 0, damage: 0, id: 0 },
       players: [
         {
           name: 'Cronan',
@@ -17,7 +18,7 @@ class CardContainer extends Component {
           hp: 158,
           initiative: 18,
           damage: 72,
-          id: 0
+          id: 1
         },
         {
           name: 'Balazar',
@@ -25,7 +26,7 @@ class CardContainer extends Component {
           hp: 127,
           initiative: 15,
           damage: 32,
-          id: 1
+          id: 2
         },
         {
           name: 'Marsk',
@@ -33,7 +34,7 @@ class CardContainer extends Component {
           hp: 114,
           initiative: 7,
           damage: 56,
-          id: 2
+          id: 3
         },
         {
           name: 'Barri',
@@ -41,20 +42,25 @@ class CardContainer extends Component {
           hp: 69,
           initiative: 14,
           damage: 12,
-          id: 3
+          id: 4
         }
       ]
     };
   }
 
-  handleEditClick = player => {
+  handleEditClick = ({ player }) => {
     this.setState({ player, dialogOpen: true });
   };
 
-  handleCloseClick = () => {
-    // TODO: Make sure we update the players array
-    // with our newly edited player object.
+  handleDialogClose = () => {
     this.setState({ dialogOpen: false });
+  };
+
+  handleDialogConfirm = player => {
+    this.setState(state => ({
+      players: [...state.players.filter(p => p.id !== player.id), player],
+      dialogOpen: false
+    }));
   };
 
   render() {
@@ -62,21 +68,18 @@ class CardContainer extends Component {
       <>
         <Box display="flex" flexDirection="column" justifyContent="center">
           {this.state.players.map(player => (
-            <PlayerCard
-              player={player}
-              key={player.id}
-              onEditClick={p => this.handleEditClick(p)}
-            />
+            <PlayerCard player={player} key={player.id} onEditClick={this.handleEditClick} />
           ))}
         </Box>
         <PlayerFormDialog
           player={this.state.player}
           open={this.state.dialogOpen}
-          onCloseClick={p => this.handleCloseClick()}
+          onClose={this.handleDialogClose}
+          onConfirm={this.handleDialogConfirm}
         />
       </>
     );
   }
 }
 
-export default CardContainer;
+export default PlayerCardList;
