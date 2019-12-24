@@ -7,9 +7,10 @@ class PlayerCardList extends Component {
   constructor(props) {
     super(props);
 
+    // TODO: Apply sorting function.
     this.state = {
       dialogOpen: false,
-      player: {},
+      player: { name: '', armor: 0, initiative: 0, hp: 0, damage: 0, id: 0 },
       players: [
         {
           name: 'Cronan',
@@ -17,7 +18,7 @@ class PlayerCardList extends Component {
           hp: 158,
           initiative: 18,
           damage: 72,
-          id: 0
+          id: 1
         },
         {
           name: 'Balazar',
@@ -25,7 +26,7 @@ class PlayerCardList extends Component {
           hp: 127,
           initiative: 15,
           damage: 32,
-          id: 1
+          id: 2
         },
         {
           name: 'Marsk',
@@ -33,7 +34,7 @@ class PlayerCardList extends Component {
           hp: 114,
           initiative: 7,
           damage: 56,
-          id: 2
+          id: 3
         },
         {
           name: 'Barri',
@@ -41,13 +42,13 @@ class PlayerCardList extends Component {
           hp: 69,
           initiative: 14,
           damage: 12,
-          id: 3
+          id: 4
         }
       ]
     };
   }
 
-  handleEditClick = player => {
+  handleEditClick = ({ player }) => {
     this.setState({ player, dialogOpen: true });
   };
 
@@ -56,7 +57,10 @@ class PlayerCardList extends Component {
   };
 
   handleDialogConfirm = player => {
-    console.log('player from dialog', player);
+    this.setState(state => ({
+      players: [...state.players.filter(p => p.id !== player.id), player],
+      dialogOpen: false
+    }));
   };
 
   render() {

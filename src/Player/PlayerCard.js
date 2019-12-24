@@ -40,7 +40,6 @@ const PlayerCard = props => {
   // just bring in ramda for utility fn's.
   // TODO: Separate props from state here.
   // TODO: Pass the player state to the `onEditClick` function passed as a prop.
-  const onEditClick = props.onEditClick ? props.onEditClick : function noop() {};
   return (
     <Card className={classes.card}>
       <CardContent className={classes.content}>
@@ -53,7 +52,7 @@ const PlayerCard = props => {
         <Typography>Damage: {props.player.damage}</Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => onEditClick(props.player)}>Edit</Button>
+        <Button onClick={() => props.onEditClick({ player: props.player })}>Edit</Button>
       </CardActions>
     </Card>
   );
