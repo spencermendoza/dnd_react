@@ -52,7 +52,7 @@ const PlayerCard = props => {
         <Typography>Damage: {props.player.damage}</Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => props.onEditClick({ player: props.player })}>Edit</Button>
+        <Button onClick={() => props.onEditClick({ ...props.player })}>Edit</Button>
       </CardActions>
     </Card>
   );
