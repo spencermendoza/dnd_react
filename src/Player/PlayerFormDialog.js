@@ -4,6 +4,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
 
 // TODO: Extract PlayerForm component.
 // TODO: Replace HTML form inputs with Material-UI input components.
@@ -29,16 +33,15 @@ class PlayerFormDialog extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
     // TODO: Find out if there's a better way to
     // gather values from a form when using uncontrolled components.
     const formValues = {
       name: this.playerNameRef.current.value,
-      initiative: parseInt(this.playerInitiativeRef.current.value, 10),
-      hp: parseInt(this.playerHpRef.current.value, 10),
-      armor: parseInt(this.playerArmorRef.current.value, 10),
-      damage: parseInt(this.playerDamageRef.current.value, 10),
-      id: parseInt(this.playerIdRef.current.value, 10)
+      initiative: parseInt(this.playerInitiativeRef.current.value),
+      hp: parseInt(this.playerHpRef.current.value),
+      armor: parseInt(this.playerArmorRef.current.value),
+      damage: parseInt(this.playerDamageRef.current.value),
+      id: parseInt(this.playerIdRef.current.value)
     };
 
     this.props.onConfirm(formValues);
@@ -51,61 +54,67 @@ class PlayerFormDialog extends Component {
         <DialogTitle>Editing: {this.props.player.name}</DialogTitle>
         <Box>
           <form noValidate onSubmit={this.handleSubmit}>
-            <label htmlFor="name">
-              <input
-                ref={this.playerNameRef}
+            <FormControl>
+              <InputLabel htmlFor="name">Name</InputLabel>
+              <Input
+                inputRef={this.playerNameRef}
+                id="name"
                 name="name"
-                type="text"
                 defaultValue={this.props.player.name}
                 key={playerId}
               />
-            </label>
-            <label htmlFor="initiative">
-              <input
-                ref={this.playerInitiativeRef}
+            </FormControl>
+            <FormControl>
+              <InputLabel htmlFor="initiative">Initiative</InputLabel>
+              <Input
+                inputRef={this.playerInitiativeRef}
+                id="initiative"
                 name="initiative"
-                type="number"
                 defaultValue={this.props.player.initiative}
                 key={playerId}
               />
-            </label>
-            <label htmlFor="hp">
-              <input
-                ref={this.playerHpRef}
+            </FormControl>
+            <FormControl>
+              <InputLabel htmlFor="hp">Hp</InputLabel>
+              <Input
+                inputRef={this.playerHpRef}
+                id="hp"
                 name="hp"
-                type="number"
                 defaultValue={this.props.player.hp}
                 key={playerId}
               />
-            </label>
-            <label htmlFor="armor">
-              <input
-                ref={this.playerArmorRef}
+            </FormControl>
+            <FormControl>
+              <InputLabel htmlFor="armor">Armor</InputLabel>
+              <Input
+                inputRef={this.playerArmorRef}
+                id="armor"
                 name="armor"
-                type="number"
                 defaultValue={this.props.player.armor}
                 key={playerId}
               />
-            </label>
-            <label htmlFor="damage">
-              <input
-                ref={this.playerDamageRef}
+            </FormControl>
+            <FormControl>
+              <InputLabel htmlFor="damage">Damage</InputLabel>
+              <Input
+                inputRef={this.playerDamageRef}
+                id="damage"
                 name="damage"
-                type="number"
                 defaultValue={this.props.player.damage}
                 key={playerId}
               />
-            </label>
-            <label htmlFor="id">
-              <input
-                ref={this.playerIdRef}
-                name="id"
-                type="number"
+            </FormControl>
+            <FormControl>
+              <InputLabel htmlFor="id">Id</InputLabel>
+              <Input
+                inputRef={this.playerIdRef}
+                id="id"
+                name="name"
                 defaultValue={this.props.player.id}
                 key={playerId}
-                disabled
+                readOnly
               />
-            </label>
+            </FormControl>
           </form>
         </Box>
         <Box className="dialog-actions">
@@ -118,6 +127,9 @@ class PlayerFormDialog extends Component {
 }
 
 PlayerFormDialog.propTypes = {
+  // TODO: Switch PropTypes.shape
+  // with PropTypes.instanceOf(Player)
+  // After creating a Player class.
   player: PropTypes.shape({
     name: PropTypes.string,
     hp: PropTypes.number,
