@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import PlayerCard from './PlayerCard';
 import PlayerFormDialog from './PlayerFormDialog';
+import Button from '@material-ui/core/Button';
+
+export const makePlayer = options => {
+  const defaults = { name: '', armor: 0, hp: 0, initiative: 0, damage: 0, id: 0 };
+  const settings = { ...defaults, ...options };
+  return settings;
+};
 
 class PlayerCardList extends Component {
   constructor(props) {
@@ -48,7 +55,7 @@ class PlayerCardList extends Component {
     };
   }
 
-  handleEditClick = ({ player }) => {
+  handleEditClick = player => {
     this.setState({ player, dialogOpen: true });
   };
 
@@ -58,7 +65,8 @@ class PlayerCardList extends Component {
 
   handleDialogConfirm = player => {
     this.setState(state => ({
-      players: [...state.players.filter(p => p.id !== player.id), player],
+      // TODO: Use sort / filter functions here.
+      players: [player, ...state.players.filter(p => p.id !== player.id)],
       dialogOpen: false
     }));
   };
@@ -70,6 +78,9 @@ class PlayerCardList extends Component {
           {this.state.players.map(player => (
             <PlayerCard player={player} key={player.id} onEditClick={this.handleEditClick} />
           ))}
+        </Box>
+        <Box>
+          <Button onClick={() => this.handleEditClick(makePlayer())}>Add New Player</Button>
         </Box>
         <PlayerFormDialog
           player={this.state.player}
