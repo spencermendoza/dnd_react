@@ -6,19 +6,10 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 // TODO: Extract PlayerForm component.
+// TODO: Replace HTML form inputs with Material-UI input components.
 class PlayerFormDialog extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   player: {
-    //     name: '',
-    //     hp: 0,
-    //     initiative: 0,
-    //     armor: 0,
-    //     damage: 0,
-    //     id: 0
-    //   }
-    // };
 
     this.playerNameRef = React.createRef();
     this.playerInitiativeRef = React.createRef();
@@ -31,14 +22,6 @@ class PlayerFormDialog extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // componentDidMount() {
-  //   console.log('component mounted', this.props.player);
-  //   console.log('this.props ', this.props);
-  //   this.setState({ player: Object.assign({}, this.props.player) });
-  // }
-
-  // componentWillUnmount() {}
-
   handleCloseClick(e) {
     e.preventDefault();
     this.props.onClose(null);
@@ -47,6 +30,8 @@ class PlayerFormDialog extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    // TODO: Find out if there's a better way to
+    // gather values from a form when using uncontrolled components.
     const formValues = {
       name: this.playerNameRef.current.value,
       initiative: parseInt(this.playerInitiativeRef.current.value, 10),
