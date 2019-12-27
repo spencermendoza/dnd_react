@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Box from '@material-ui/core/Box';
 import PlayerCard from './PlayerCard';
 import PlayerFormDialog from './PlayerFormDialog';
+import PlayerSortMenu from './PlayerSortMenu';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 export const makePlayer = options => {
@@ -75,6 +76,7 @@ class PlayerCardList extends Component {
     return (
       <>
         <Box display="flex" flexDirection="column" justifyContent="center">
+          <PlayerSortMenu />
           {this.state.players.map(player => (
             <PlayerCard player={player} key={player.id} onEditClick={this.handleEditClick} />
           ))}
