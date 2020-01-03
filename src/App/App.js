@@ -4,13 +4,14 @@ import { Player } from '../Player/Player';
 import PlayerCardList from '../Player/PlayerCardList';
 import PlayerFormDialog from '../Player/PlayerFormDialog';
 import PlayerSortMenu from '../Player/PlayerSortMenu';
-import { playersExample, updatePlayer } from '../Player/playerHelpers';
+import { playersExample, updatePlayer, sortPlayersBy } from '../Player/playerHelpers';
 import TurnTimer from '../TurnTimer/TurnTimer';
 
 import './App.css';
 
 class App extends Component {
   state = {
+    sortBy: 'name',
     players: playersExample.map(playerJson => Player.create(playerJson)),
     dialog: {
       open: false,
@@ -36,27 +37,19 @@ class App extends Component {
     this.setState({ dialog: { player: Player.create(), open: false } });
   };
 
+  handleSortMenuChange = ({ sortBy }) => {
+    this.setState({ sortBy });
+  };
+
   render() {
     const { open, player } = this.state.dialog;
-    const menuItems = [
-      {
-        displayText: 'Initiative Value',
-        sortFunction: (a, b) => {
-          console.log('a', a, 'b', b);
-        }
-      },
-      {
-        displayText: 'HP',
-        sortFunction: v => {
-          console.log('v', v);
-        }
-      }
-    ];
-
     return (
       <>
-        <PlayerSortMenu menuItems={menuItems} />
-        <PlayerCardList players={this.state.players} onEditClick={this.handleEditClick} />
+        <PlayerSortMenu onChange={this.handleSortMenuChange} />
+        <PlayerCardList
+          players={sortPlayersBy(this.state.players, this.state.sortBy)}
+          onEditClick={this.handleEditClick}
+        />
         <Button onClick={this.handleAddClick}>Add New Player</Button>
         <TurnTimer turnDuration={5000} />
         <PlayerFormDialog

@@ -4,12 +4,18 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { noop } from '../utils';
 
-// function SimpleMenu(props) {
-// const {menuItems} = props;
-// OR
-// const menuItems = props.menuItems;
-// }
-export default function SimpleMenu({ menuItems, onChange }) {
+const defaultMenuItems = [
+  {
+    displayText: 'Initiative Value',
+    sortBy: 'initiative'
+  },
+  {
+    displayText: 'HP',
+    sortBy: 'hp'
+  }
+];
+
+export default function SimpleMenu({ menuItems = defaultMenuItems, onChange = noop }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleOpenClick = event => {
@@ -17,23 +23,20 @@ export default function SimpleMenu({ menuItems, onChange }) {
   };
 
   const handleMenuItemClick = item => {
-    (onChange || noop)(item);
+    onChange(item);
     setAnchorEl(null);
   };
 
-  // Example menuItem
-  // const menuItem = {displayText: string; sortFn: function;}
   return (
-    // Step 1. Accept an array of Menu Items as props.
-    // Step 2. Map Menu Items to <MenuItem /> components.
-    // Step 3. Accept an 'onChange' function prop.
     <div>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleOpenClick}>
         Open Menu
       </Button>
-      <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={anchorEl}>
+      <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)}>
         {menuItems.map(item => (
-          <MenuItem onClick={() => handleMenuItemClick(item)}>Sort by {item.displayText}</MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick(item)} key={item.displayText}>
+            Sort by {item.displayText}
+          </MenuItem>
         ))}
       </Menu>
     </div>

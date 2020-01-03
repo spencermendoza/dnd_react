@@ -53,3 +53,16 @@ export function getPlayerPropTypes() {
  * @param {*} player
  */
 export const updatePlayer = (list, player) => list.map(p => (p.id === player.id ? player : p));
+
+const _sort = prop => (a, b) => {
+  if (a[prop] > b[prop]) return 1;
+  if (a[prop] === b[prop]) return 0;
+  if (a[prop] < b[prop]) return -1;
+};
+
+/**
+ *
+ * @param {*} list - the list of players to sort.
+ * @param {*} prop - property to sort the players by.
+ */
+export const sortPlayersBy = (list, prop) => [...list.sort(_sort(prop))];
