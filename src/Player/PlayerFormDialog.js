@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { getPlayerPropTypes } from './playerHelpers';
+import { Player } from './Player';
 // import { makeStyles } from '@material-ui/core/styles';
 
 // TODO: Extract PlayerForm component.
@@ -21,37 +23,35 @@ class PlayerFormDialog extends Component {
     this.playerArmorRef = React.createRef();
     this.playerDamageRef = React.createRef();
     this.playerIdRef = React.createRef();
-
-    this.handleCloseClick = this.handleCloseClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleCloseClick(e) {
+  handleCloseClick = e => {
     e.preventDefault();
-    this.props.onClose(null);
-  }
+    this.props.onClose();
+  };
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
     // TODO: Find out if there's a better way to
     // gather values from a form when using uncontrolled components.
-    const formValues = {
+    const newPlayer = Player.create({
       name: this.playerNameRef.current.value,
       initiative: parseInt(this.playerInitiativeRef.current.value),
       hp: parseInt(this.playerHpRef.current.value),
       armor: parseInt(this.playerArmorRef.current.value),
       damage: parseInt(this.playerDamageRef.current.value),
       id: parseInt(this.playerIdRef.current.value)
-    };
+    });
 
-    this.props.onConfirm(formValues);
-  }
+    this.props.onConfirm(newPlayer);
+  };
 
   render() {
-    const playerId = this.props.player.id;
+    const player = this.props.player || Player.create();
+    const open = this.props.open;
     return (
-      <Dialog open={this.props.open}>
-        <DialogTitle>Editing: {this.props.player.name}</DialogTitle>
+      <Dialog open={open}>
+        <DialogTitle>Editing: {player.name}</DialogTitle>
         <Box>
           <form noValidate onSubmit={this.handleSubmit}>
             <FormControl>
@@ -60,8 +60,8 @@ class PlayerFormDialog extends Component {
                 inputRef={this.playerNameRef}
                 id="name"
                 name="name"
-                defaultValue={this.props.player.name}
-                key={playerId}
+                defaultValue={player.name}
+                key={player.id}
               />
             </FormControl>
             <FormControl>
@@ -70,8 +70,8 @@ class PlayerFormDialog extends Component {
                 inputRef={this.playerInitiativeRef}
                 id="initiative"
                 name="initiative"
-                defaultValue={this.props.player.initiative}
-                key={playerId}
+                defaultValue={player.initiative}
+                key={player.id}
               />
             </FormControl>
             <FormControl>
@@ -80,8 +80,8 @@ class PlayerFormDialog extends Component {
                 inputRef={this.playerHpRef}
                 id="hp"
                 name="hp"
-                defaultValue={this.props.player.hp}
-                key={playerId}
+                defaultValue={player.hp}
+                key={player.id}
               />
             </FormControl>
             <FormControl>
@@ -90,8 +90,8 @@ class PlayerFormDialog extends Component {
                 inputRef={this.playerArmorRef}
                 id="armor"
                 name="armor"
-                defaultValue={this.props.player.armor}
-                key={playerId}
+                defaultValue={player.armor}
+                key={player.id}
               />
             </FormControl>
             <FormControl>
@@ -100,8 +100,8 @@ class PlayerFormDialog extends Component {
                 inputRef={this.playerDamageRef}
                 id="damage"
                 name="damage"
-                defaultValue={this.props.player.damage}
-                key={playerId}
+                defaultValue={player.damage}
+                key={player.id}
               />
             </FormControl>
             <FormControl>
@@ -110,13 +110,14 @@ class PlayerFormDialog extends Component {
                 inputRef={this.playerIdRef}
                 id="id"
                 name="name"
-                defaultValue={this.props.player.id}
-                key={playerId}
+                defaultValue={player.id}
+                key={player.id}
                 readOnly
               />
             </FormControl>
           </form>
         </Box>
+        {/* TODO: Use a render prop to make this more flexible. */}
         <Box className="dialog-actions">
           <Button onClick={this.handleCloseClick}>Close</Button>
           <Button onClick={this.handleSubmit}>Confirm</Button>
@@ -127,18 +128,8 @@ class PlayerFormDialog extends Component {
 }
 
 PlayerFormDialog.propTypes = {
-  // TODO: Switch PropTypes.shape
-  // with PropTypes.instanceOf(Player)
-  // After creating a Player class.
-  player: PropTypes.shape({
-    name: PropTypes.string,
-    hp: PropTypes.number,
-    initiative: PropTypes.number,
-    armor: PropTypes.number,
-    damage: PropTypes.number,
-    id: PropTypes.number
-  }),
-  open: PropTypes.bool,
+  player: PropTypes.shape(getPlayerPropTypes()),
+  open: PropTypes.bool.isRequired,
   onClose: PropTypes.func,
   onConfirm: PropTypes.func
 };
