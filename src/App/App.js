@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
 import { Player } from '../Player/Player';
 import PlayerCardList from '../Player/PlayerCardList';
 import PlayerFormDialog from '../Player/PlayerFormDialog';
+import PlayerSortMenu from '../Player/PlayerSortMenu';
 import { playersExample, updatePlayer } from '../Player/playerHelpers';
-import Button from '@material-ui/core/Button';
+import TurnTimer from '../TurnTimer/TurnTimer';
 
 import './App.css';
 
@@ -39,8 +41,10 @@ class App extends Component {
     const { open, player } = this.state.dialog;
     return (
       <>
+        <PlayerSortMenu />
         <PlayerCardList players={this.state.players} onEditClick={this.handleEditClick} />
         <Button onClick={this.handleAddClick}>Add New Player</Button>
+        <TurnTimer turnDuration={5000} />
         <PlayerFormDialog
           open={open}
           player={player}

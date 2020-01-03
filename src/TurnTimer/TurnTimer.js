@@ -12,25 +12,21 @@ class TurnTimer extends Component {
     };
   }
 
-  handleStopWatch = () => {
-    this.setState(prevState => ({
-      isRunning: !prevState.isRunning
-    }));
-    if (!this.state.isRunning) {
-      this.setState({ previousTime: Date.now() });
-    }
-  };
+  // handleStopWatch = () => {
+  //   this.setState(prevState => ({
+  //     isRunning: !prevState.isRunning
+  //   }));
+  //   if (!this.state.isRunning) {
+  //     this.setState({ previousTime: Date.now() });
+  //   }
+  // };
 
   //   componentDidMount() {
   //     this.intervalID = setInterval(() => this.tick(), 100);
   //   }
 
   render() {
-    return (
-      <div>
-        <h3>Turn Timer!</h3>
-      </div>
-    );
+    return <div>{this.props.turnDuration}</div>;
   }
 }
 
