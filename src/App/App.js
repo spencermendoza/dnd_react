@@ -9,7 +9,6 @@ import TurnTimer from '../TurnTimer/TurnTimer';
 
 import './App.css';
 
-// TODO: Put the "current" player in Context?
 class App extends Component {
   state = {
     players: playersExample.map(playerJson => Player.create(playerJson)),
@@ -39,9 +38,24 @@ class App extends Component {
 
   render() {
     const { open, player } = this.state.dialog;
+    const menuItems = [
+      {
+        displayText: 'Initiative Value',
+        sortFunction: (a, b) => {
+          console.log('a', a, 'b', b);
+        }
+      },
+      {
+        displayText: 'HP',
+        sortFunction: v => {
+          console.log('v', v);
+        }
+      }
+    ];
+
     return (
       <>
-        <PlayerSortMenu />
+        <PlayerSortMenu menuItems={menuItems} />
         <PlayerCardList players={this.state.players} onEditClick={this.handleEditClick} />
         <Button onClick={this.handleAddClick}>Add New Player</Button>
         <TurnTimer turnDuration={5000} />
