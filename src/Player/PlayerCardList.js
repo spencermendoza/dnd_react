@@ -1,59 +1,52 @@
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
+import { Player } from './Player';
 import PlayerCard from './PlayerCard';
 import PlayerFormDialog from './PlayerFormDialog';
 import Button from '@material-ui/core/Button';
+import { updatePlayer } from './playerHelpers';
 
-export const makePlayer = options => {
-  const defaults = { name: '', armor: 0, hp: 0, initiative: 0, damage: 0, id: 0 };
-  const settings = { ...defaults, ...options };
-  return settings;
-};
+const playerJson = [
+  {
+    name: 'Cronan',
+    armor: 18,
+    hp: 158,
+    initiative: 18,
+    damage: 72,
+    id: 1
+  },
+  {
+    name: 'Balazar',
+    armor: 20,
+    hp: 127,
+    initiative: 15,
+    damage: 32,
+    id: 2
+  },
+  {
+    name: 'Marsk',
+    armor: 19,
+    hp: 114,
+    initiative: 7,
+    damage: 56,
+    id: 3
+  },
+  {
+    name: 'Barri',
+    armor: 15,
+    hp: 69,
+    initiative: 14,
+    damage: 12,
+    id: 4
+  }
+];
 
 class PlayerCardList extends Component {
-  constructor(props) {
-    super(props);
-
-    // TODO: Apply sorting function.
-    this.state = {
-      dialogOpen: false,
-      player: { name: '', armor: 0, initiative: 0, hp: 0, damage: 0, id: 0 },
-      players: [
-        {
-          name: 'Cronan',
-          armor: 18,
-          hp: 158,
-          initiative: 18,
-          damage: 72,
-          id: 1
-        },
-        {
-          name: 'Balazar',
-          armor: 20,
-          hp: 127,
-          initiative: 15,
-          damage: 32,
-          id: 2
-        },
-        {
-          name: 'Marsk',
-          armor: 19,
-          hp: 114,
-          initiative: 7,
-          damage: 56,
-          id: 3
-        },
-        {
-          name: 'Barri',
-          armor: 15,
-          hp: 69,
-          initiative: 14,
-          damage: 12,
-          id: 4
-        }
-      ]
-    };
-  }
+  state = {
+    dialogOpen: false,
+    player: { name: '', armor: 0, initiative: 0, hp: 0, damage: 0, id: 0 },
+    players: playerJson.map(p => Player.create(p))
+  };
 
   handleEditClick = player => {
     this.setState({ player, dialogOpen: true });
@@ -76,11 +69,11 @@ class PlayerCardList extends Component {
       <>
         <Box display="flex" flexDirection="column" justifyContent="center">
           {this.state.players.map(player => (
-            <PlayerCard player={player} key={player.id} onEditClick={this.handleEditClick} />
+            <PlayerCard {...player} key={player.id} onEditClick={this.handleEditClick} />
           ))}
         </Box>
         <Box>
-          <Button onClick={() => this.handleEditClick(makePlayer())}>Add New Player</Button>
+          <Button onClick={() => this.handleEditClick(Player.create())}>Add New Player</Button>
         </Box>
         <PlayerFormDialog
           player={this.state.player}
