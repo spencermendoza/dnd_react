@@ -19,7 +19,7 @@ export class Player {
    *
    * @param {{name: string; hp: number; damage: number; initiative: number; armor: number; id: number;}} playerObj
    */
-  static create(playerObj) {
+  static create(playerObj = {}) {
     return new Player(playerObj);
   }
 }

@@ -6,62 +6,37 @@ import PlayerFormDialog from './PlayerFormDialog';
 import Button from '@material-ui/core/Button';
 import { updatePlayer } from './playerHelpers';
 
-const playerJson = [
-  {
-    name: 'Cronan',
-    armor: 18,
-    hp: 158,
-    initiative: 18,
-    damage: 72,
-    id: 1
-  },
-  {
-    name: 'Balazar',
-    armor: 20,
-    hp: 127,
-    initiative: 15,
-    damage: 32,
-    id: 2
-  },
-  {
-    name: 'Marsk',
-    armor: 19,
-    hp: 114,
-    initiative: 7,
-    damage: 56,
-    id: 3
-  },
-  {
-    name: 'Barri',
-    armor: 15,
-    hp: 69,
-    initiative: 14,
-    damage: 12,
-    id: 4
-  }
-];
-
 class PlayerCardList extends Component {
-  state = {
-    dialogOpen: false,
-    player: { name: '', armor: 0, initiative: 0, hp: 0, damage: 0, id: 0 },
-    players: playerJson.map(p => Player.create(p))
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dialogOpen: false,
+      currentPlayer: Player.create(),
+      players: props.players || []
+    };
+  }
+
+  handleAddClick = () => {
+    this.setState({ currentPlayer: Player.create(), dialogOpen: true });
   };
 
   handleEditClick = player => {
-    this.setState({ player, dialogOpen: true });
+    this.setState({ currentPlayer: player, dialogOpen: true });
   };
 
   handleDialogClose = () => {
-    this.setState({ dialogOpen: false });
+    this.setState({ dialogOpen: false, currentPlayer: Player.create() });
   };
 
   handleDialogConfirm = player => {
-    this.setState(state => ({
-      // TODO: Use sort / filter functions here.
-      players: [player, ...state.players.filter(p => p.id !== player.id)],
-      dialogOpen: false
-    }));
+    const updatedPlayers = updatePlayer(this.state.players, player);
+    this.setState({
+      players: updatedPlayers,
+      dialogOpen: false,
+      currentPlayer: Player.create()
+    });
+    // TODO: Use sort / filter functions here.
   };
 
   render() {
@@ -69,14 +44,15 @@ class PlayerCardList extends Component {
       <>
         <Box display="flex" flexDirection="column" justifyContent="center">
           {this.state.players.map(player => (
-            <PlayerCard {...player} key={player.id} onEditClick={this.handleEditClick} />
+            <PlayerCard player={player} key={player.id} onEditClick={this.handleEditClick} />
           ))}
         </Box>
+        {/* TODO: Remove the Button and the PlayerFormDialog for better separation of concern. */}
         <Box>
-          <Button onClick={() => this.handleEditClick(Player.create())}>Add New Player</Button>
+          <Button onClick={this.handleAddClick}>Add New Player</Button>
         </Box>
         <PlayerFormDialog
-          player={this.state.player}
+          player={this.state.currentPlayer}
           open={this.state.dialogOpen}
           onClose={this.handleDialogClose}
           onConfirm={this.handleDialogConfirm}
