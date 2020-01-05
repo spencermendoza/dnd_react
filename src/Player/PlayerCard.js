@@ -31,15 +31,11 @@ const useStyles = makeStyles({
   }
 });
 
-// TODO: Agree on using props as a parameter name
-//          function MyComponent(props) {                                  <--- I like this one
-//       OR destructuring the props object in the function signature to get parameter names.
-//          function MyComponent({propA, propB ... propZ}) {
-//
-const PlayerCard = ({ player, onEditClick }) => {
+// TODO: Find out if there is a performance benefit to splitting out the different props that
+// `player` contains.
+const PlayerCard = ({ player, onEditClick = noop }) => {
   const { name, hp, armor, damage, initiative } = player;
   const classes = useStyles();
-  const handleEditClick = onEditClick ? onEditClick : noop;
   return (
     <Card className={classes.card}>
       <CardContent className={classes.content}>
@@ -52,7 +48,7 @@ const PlayerCard = ({ player, onEditClick }) => {
         <Typography>Damage: {damage}</Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => handleEditClick(player)}>Edit</Button>
+        <Button onClick={() => onEditClick(player)}>Edit</Button>
       </CardActions>
     </Card>
   );

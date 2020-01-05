@@ -19,7 +19,7 @@ class PlayerProvider extends Component {
     const updatedPlayers = player.id
       ? updatePlayer(this.state.players, player)
       : [...this.state.players, { ...player, id: generateId() }];
-    this.setState({ players: updatedPlayers, dialog: { open: false } });
+    this.setState({ players: updatedPlayers, dialog: { player: Player.create(), open: false } });
   };
 
   handleDialogCancelClick = () => {
@@ -36,13 +36,23 @@ class PlayerProvider extends Component {
     sortPlayersBy,
     handleAddClick: this.handleAddClick,
     handleEditClick: this.handleEditClick,
+    handleSortMenuChange: this.handleSortMenuChange,
     handleDialogCancelClick: this.handleDialogCancelClick,
     handleDialogConfirmClick: this.handleDialogConfirmClick,
-    handleSortMenuChange: this.handleSortMenuChange,
     dialog: {
       open: false,
       player: Player.create()
-    }
+    },
+    sortOptions: [
+      {
+        displayText: 'Initiative Value',
+        sortBy: 'initiative'
+      },
+      {
+        displayText: 'HP',
+        sortBy: 'hp'
+      }
+    ]
   };
 
   render() {
