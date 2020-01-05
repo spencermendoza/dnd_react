@@ -66,3 +66,9 @@ const _sort = prop => (a, b) => {
  * @param {*} prop - property to sort the players by.
  */
 export const sortPlayersBy = (list, prop) => [...list.sort(_sort(prop))];
+
+/**
+ * generateId
+ * @returns {number} id.
+ */
+export const generateId = () => Math.floor(Math.random() * 100_000);

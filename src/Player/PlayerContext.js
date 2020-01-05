@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Player } from './Player';
-import { fakePlayers, updatePlayer } from './playerHelpers';
+import { fakePlayers, updatePlayer, sortPlayersBy, generateId } from './playerHelpers';
 
-const { Provider, Consumer } = React.createContext();
+const PlayerContext = React.createContext();
+const { Provider, Consumer } = PlayerContext;
 
 class PlayerProvider extends Component {
   handleAddClick = () => {
@@ -15,7 +16,9 @@ class PlayerProvider extends Component {
   };
 
   handleDialogConfirmClick = player => {
-    const updatedPlayers = updatePlayer(this.state.players, player);
+    const updatedPlayers = player.id
+      ? updatePlayer(this.state.players, player)
+      : [...this.state.players, { ...player, id: generateId() }];
     this.setState({ players: updatedPlayers, dialog: { open: false } });
   };
 
@@ -29,16 +32,17 @@ class PlayerProvider extends Component {
 
   state = {
     sortBy: 'name',
-    players: fakePlayers.map(playerJson => Player.create(playerJson)),
-    dialog: {
-      open: false,
-      player: Player.create()
-    },
+    players: fakePlayers.slice(),
+    sortPlayersBy,
     handleAddClick: this.handleAddClick,
     handleEditClick: this.handleEditClick,
     handleDialogCancelClick: this.handleDialogCancelClick,
     handleDialogConfirmClick: this.handleDialogConfirmClick,
-    handleSortMenuChange: this.handleSortMenuChange
+    handleSortMenuChange: this.handleSortMenuChange,
+    dialog: {
+      open: false,
+      player: Player.create()
+    }
   };
 
   render() {
@@ -46,4 +50,4 @@ class PlayerProvider extends Component {
   }
 }
 
-export { PlayerProvider, Consumer as PlayerConsumer };
+export { PlayerContext, PlayerProvider, Consumer as PlayerConsumer };
