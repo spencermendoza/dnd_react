@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Box from '@material-ui/core/Box';
@@ -7,9 +6,8 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { getPlayerPropTypes } from './playerHelpers';
 import { Player } from './Player';
-// import { makeStyles } from '@material-ui/core/styles';
+import { PlayerContext } from './PlayerContext';
 
 // TODO: Extract PlayerForm component.
 // TODO: Replace HTML form inputs with Material-UI input components.
@@ -25,12 +23,14 @@ class PlayerFormDialog extends Component {
     this.playerIdRef = React.createRef();
   }
 
-  handleCloseClick = e => {
+  static contextType = PlayerContext;
+
+  handleCloseClick = (e, onClose) => {
     e.preventDefault();
-    this.props.onClose();
+    onClose();
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e, onConfirm) => {
     e.preventDefault();
     // TODO: Find out if there's a better way to
     // gather values from a form when using uncontrolled components.
@@ -43,12 +43,13 @@ class PlayerFormDialog extends Component {
       id: parseInt(this.playerIdRef.current.value)
     });
 
-    this.props.onConfirm(newPlayer);
+    onConfirm(newPlayer);
   };
 
   render() {
-    const player = this.props.player || Player.create();
-    const open = this.props.open;
+    const { dialog, handleDialogCancelClick, handleDialogConfirmClick } = this.context;
+    const { player, open } = dialog;
+
     return (
       <Dialog open={open}>
         <DialogTitle>Editing: {player.name}</DialogTitle>
@@ -119,19 +120,12 @@ class PlayerFormDialog extends Component {
         </Box>
         {/* TODO: Use a render prop to make this more flexible. */}
         <Box className="dialog-actions">
-          <Button onClick={this.handleCloseClick}>Close</Button>
-          <Button onClick={this.handleSubmit}>Confirm</Button>
+          <Button onClick={e => this.handleCloseClick(e, handleDialogCancelClick)}>Close</Button>
+          <Button onClick={e => this.handleSubmit(e, handleDialogConfirmClick)}>Confirm</Button>
         </Box>
       </Dialog>
     );
   }
 }
-
-PlayerFormDialog.propTypes = {
-  player: PropTypes.shape(getPlayerPropTypes()),
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func,
-  onConfirm: PropTypes.func
-};
 
 export default PlayerFormDialog;
