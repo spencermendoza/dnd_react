@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { noop } from '../utils';
 
+// TODO: Move this to context somewhere.
 const defaultMenuItems = [
   {
     displayText: 'Initiative Value',

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // TODO: Find a better place to put this, if we should even keep it.
-export const playersExample = [
+export const fakePlayers = [
   {
     name: 'Cronan',
     armor: 18,
