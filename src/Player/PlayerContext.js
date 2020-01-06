@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Player } from './Player';
+import { Player } from './player';
 import { fakePlayers, updatePlayer, sortPlayersBy, generateId } from './playerHelpers';
 
 const PlayerContext = React.createContext();

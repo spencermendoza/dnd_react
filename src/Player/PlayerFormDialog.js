@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { Player } from './Player';
+import { Player } from './player';
 import { PlayerContext } from './PlayerContext';
 
 // TODO: Extract PlayerForm component.
