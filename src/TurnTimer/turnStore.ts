@@ -8,8 +8,8 @@ type TurnStoreState = {
 };
 
 export class TurnStore {
-  _store: Subject<TurnStoreState>;
-  _stateUpdates: Subject<Partial<TurnStoreState>>;
+  private readonly _store: Subject<TurnStoreState>;
+  private readonly _stateUpdates: Subject<Partial<TurnStoreState>>;
 
   constructor(initialState: TurnStoreState) {
     this._store = new BehaviorSubject(initialState);
@@ -23,6 +23,12 @@ export class TurnStore {
       .subscribe(this._store);
   }
 
+  // TODO: Try using streams of functions
+  // that return new slices of state to reduce
+  // into our state store.
+  // This way we can model our state changes
+  // as pure functions of state.
+  // nextState = currentAction(prevState);
   updateState(stateUpdate: Partial<TurnStoreState>) {
     this._stateUpdates.next(stateUpdate);
   }

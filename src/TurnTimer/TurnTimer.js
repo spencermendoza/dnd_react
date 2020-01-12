@@ -5,16 +5,18 @@ const TurnTimer = ({ store }) => {
   // the current turn and player.
   const [turn, setTurn] = useState({ duration: 0, complete: false });
   const [player, setPlayer] = useState({ name: '' });
+  const turn$ = store.selectState('turn');
+  const player$ = store.selectState('player')
   // Connect our state hooks to our Store.
   useEffect(() => {
-    const turnSub = store.selectState('turn').subscribe(setTurn);
-    const playerSub = store.selectState('player').subscribe(setPlayer);
+    const turnSub = turn$.subscribe(setTurn);
+    const playerSub = player$.subscribe(setPlayer);
 
     return function cleanup() {
       turnSub.unsubscribe();
       playerSub.unsubscribe();
     };
-  }, [store]);
+  }, [turn$, player$]);
 
   return (
     <>
