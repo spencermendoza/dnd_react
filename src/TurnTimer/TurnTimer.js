@@ -1,33 +1,27 @@
-import React, { Component } from 'react';
-// import { PropTypes } from 'prop-types';
-// import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 
-class TurnTimer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isRunning: false,
-      elapsedTime: 0,
-      previousTime: 0
+const TurnTimer = ({ store }) => {
+  // Use state hooks to set and reference
+  // the current turn and player.
+  const [turn, setTurn] = useState({ duration: 0, complete: false });
+  const [player, setPlayer] = useState({ name: '' });
+  // Connect our state hooks to our Store.
+  useEffect(() => {
+    const turnSub = store.selectState('turn').subscribe(setTurn);
+    const playerSub = store.selectState('player').subscribe(setPlayer);
+
+    return function cleanup() {
+      turnSub.unsubscribe();
+      playerSub.unsubscribe();
     };
-  }
+  }, [store]);
 
-  // handleStopWatch = () => {
-  //   this.setState(prevState => ({
-  //     isRunning: !prevState.isRunning
-  //   }));
-  //   if (!this.state.isRunning) {
-  //     this.setState({ previousTime: Date.now() });
-  //   }
-  // };
-
-  //   componentDidMount() {
-  //     this.intervalID = setInterval(() => this.tick(), 100);
-  //   }
-
-  render() {
-    return <div>{this.props.turnDuration}</div>;
-  }
-}
+  return (
+    <>
+      <div>Current Player: {player.name}</div>
+      <div>{turn.duration}</div>
+    </>
+  );
+};
 
 export default TurnTimer;

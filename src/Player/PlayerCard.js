@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   // TODO: Take a look at Mui docs -> System -> Flexbox.
   // and make sure that our styles are following their system.
   card: {
+    backgroundColor: '#fefefe',
     minWidth: 275,
     minHeight: 300,
     display: 'flex',
@@ -20,9 +21,11 @@ const useStyles = makeStyles({
     flexDirection: 'column'
   },
   title: {
-    color: 'pink',
-    borderBottom: '1px solid pink',
-    fontSize: 18
+    color: '#bada55',
+    borderBottom: '4px solid pink',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+    // fontSize: 18
   },
   content: {
     display: 'flex',
