@@ -1,6 +1,7 @@
 import { updatePlayer } from '../playerHelpers';
 
 test('updatePlayer replaces a player in a list by id', () => {
+  // TODO: Learn a better way to manage test fixtures.
   const players = [
     {
       name: 'Cronan',

@@ -6,7 +6,14 @@ export class Player {
    *
    * @param {{name: string; hp: number; damage: number; initiative: number; armor: number; id: number;}} playerAttributes - An object with properties that will be set on the returned Player.
    */
-  constructor({ name = '', hp = 0, damage = 0, initiative = 0, armor = 0, id }) {
+  constructor({
+    name = '',
+    hp = 0,
+    damage = 0,
+    initiative = 0,
+    armor = 0,
+    id = 0
+  }) {
     this.name = name;
     this.id = id;
     this.hp = hp;

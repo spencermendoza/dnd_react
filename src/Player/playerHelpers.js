@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 // TODO: Find a better place to put this, if we should even keep it.
 // Copy pasta this Player type definition for jsdoc --> {name: string; id: number; hp: number; armor: number; damage: number; initiative: number;}
-export const fakePlayers = [
+export const FAKE_PLAYERS = [
   {
     name: 'Cronan',
     armor: 18,
@@ -53,7 +53,8 @@ export function getPlayerPropTypes() {
  * @param {{name: string; id: number; hp: number; armor: number; damage: number; initiative: number;}[]} list - The list of Players that you want to update.
  * @param {{name: string; id: number; hp: number; armor: number; damage: number; initiative: number;}} player - the player to update.
  */
-export const updatePlayer = (list, player) => list.map(p => (p.id === player.id ? player : p));
+export const updatePlayer = (list, player) =>
+  list.map(p => (p.id === player.id ? player : p));
 
 const _sort = prop => (a, b) => {
   if (a[prop] > b[prop]) return 1;

@@ -25,9 +25,9 @@ class PlayerFormDialog extends Component {
 
   static contextType = PlayerContext;
 
-  handleCloseClick = (e, onClose) => {
+  handleCancelClick = (e, onCancel) => {
     e.preventDefault();
-    onClose();
+    onCancel();
   };
 
   handleSubmit = (e, onConfirm) => {
@@ -47,7 +47,11 @@ class PlayerFormDialog extends Component {
   };
 
   render() {
-    const { dialog, handleDialogCancelClick, handleDialogConfirmClick } = this.context;
+    const {
+      dialog,
+      handleDialogCancelClick,
+      handleDialogConfirmClick
+    } = this.context;
     const { player, open } = dialog;
 
     return (
@@ -58,6 +62,7 @@ class PlayerFormDialog extends Component {
             <FormControl>
               <InputLabel htmlFor="name">Name</InputLabel>
               <Input
+                type="text"
                 inputRef={this.playerNameRef}
                 id="name"
                 name="name"
@@ -68,6 +73,7 @@ class PlayerFormDialog extends Component {
             <FormControl>
               <InputLabel htmlFor="initiative">Initiative</InputLabel>
               <Input
+                type="number"
                 inputRef={this.playerInitiativeRef}
                 id="initiative"
                 name="initiative"
@@ -78,6 +84,7 @@ class PlayerFormDialog extends Component {
             <FormControl>
               <InputLabel htmlFor="hp">Hp</InputLabel>
               <Input
+                type="number"
                 inputRef={this.playerHpRef}
                 id="hp"
                 name="hp"
@@ -88,6 +95,7 @@ class PlayerFormDialog extends Component {
             <FormControl>
               <InputLabel htmlFor="armor">Armor</InputLabel>
               <Input
+                type="number"
                 inputRef={this.playerArmorRef}
                 id="armor"
                 name="armor"
@@ -98,6 +106,7 @@ class PlayerFormDialog extends Component {
             <FormControl>
               <InputLabel htmlFor="damage">Damage</InputLabel>
               <Input
+                type="number"
                 inputRef={this.playerDamageRef}
                 id="damage"
                 name="damage"
@@ -108,6 +117,7 @@ class PlayerFormDialog extends Component {
             <FormControl>
               <InputLabel htmlFor="id">Id</InputLabel>
               <Input
+                type="number"
                 inputRef={this.playerIdRef}
                 id="id"
                 name="name"
@@ -120,8 +130,14 @@ class PlayerFormDialog extends Component {
         </Box>
         {/* TODO: Use a render prop to make this more flexible. */}
         <Box className="dialog-actions">
-          <Button onClick={e => this.handleCloseClick(e, handleDialogCancelClick)}>Close</Button>
-          <Button onClick={e => this.handleSubmit(e, handleDialogConfirmClick)}>Confirm</Button>
+          <Button
+            onClick={e => this.handleCancelClick(e, handleDialogCancelClick)}
+          >
+            Cancel
+          </Button>
+          <Button onClick={e => this.handleSubmit(e, handleDialogConfirmClick)}>
+            Confirm
+          </Button>
         </Box>
       </Dialog>
     );

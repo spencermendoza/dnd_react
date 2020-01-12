@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Player } from './player';
-import { fakePlayers, updatePlayer, sortPlayersBy, generateId } from './playerHelpers';
+import {
+  FAKE_PLAYERS,
+  updatePlayer,
+  sortPlayersBy,
+  generateId
+} from './playerHelpers';
 
 const PlayerContext = React.createContext();
 const { Provider, Consumer } = PlayerContext;
@@ -19,7 +24,10 @@ class PlayerProvider extends Component {
     const updatedPlayers = player.id
       ? updatePlayer(this.state.players, player)
       : [...this.state.players, { ...player, id: generateId() }];
-    this.setState({ players: updatedPlayers, dialog: { player: Player.create(), open: false } });
+    this.setState({
+      players: updatedPlayers,
+      dialog: { player: Player.create(), open: false }
+    });
   };
 
   handleDialogCancelClick = () => {
@@ -32,7 +40,7 @@ class PlayerProvider extends Component {
 
   state = {
     sortBy: 'name',
-    players: fakePlayers.slice(),
+    players: FAKE_PLAYERS,
     sortPlayersBy,
     handleAddClick: this.handleAddClick,
     handleEditClick: this.handleEditClick,
