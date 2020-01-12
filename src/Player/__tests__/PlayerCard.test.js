@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayerCard from './PlayerCard';
+import PlayerCard from '../PlayerCard';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 // TODO: Move this to a pretest file somewhre.

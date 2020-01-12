@@ -1,4 +1,4 @@
-import { updatePlayer } from './playerHelpers';
+import { updatePlayer } from '../playerHelpers';
 
 test('updatePlayer replaces a player in a list by id', () => {
   const players = [
