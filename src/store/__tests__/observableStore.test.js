@@ -1,4 +1,4 @@
-import { tap, map, share } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 import { ObservableStore } from '../observableStore';
 import { concat } from 'rxjs';
@@ -89,10 +89,8 @@ describe('ObservableStore', () => {
   it('should emit its initial state immediately', () => {
     testScheduler.run(helpers => {
       let name = 'replace me';
-      // const initialState = { name: 'robo rob' };
 
       const { expectObservable, flush } = helpers;
-      // const store = new ObservableStore({ name: 'robo rob' });
       const nameUpdates$ = nameStore
         .stateUpdates()
         .pipe(tap(n => (name = n.name))); /*?*/
@@ -108,32 +106,36 @@ describe('ObservableStore', () => {
     testScheduler.run(helpers => {
       let lastValue;
       const { expectObservable, flush } = helpers; /*?*/
+      const nameUpdates$ = nameStore
+        .stateUpdates()
+        .pipe(tap(x => (lastValue = x)));
       const updatedState = { name: 'chungus grande' };
-      const nameUpdates$ = nameStore.stateUpdates().pipe(
-        tap(x => {
-          lastValue = x;
-        })
-      );
-      const nameUpdates2$ = nameStore.stateUpdates().pipe();
+      const expected = 'a---';
 
-      // The observer will receive the latest
-      // value from the store immediately on subscription.
-      const expectedTimeline = 'a---';
-      const expectedTimeline2 = 'b---';
+      nameStore.updateState(_ => ({ ...updatedState }));
 
-      expectObservable(nameUpdates$).toBe(expectedTimeline, {
-        a: initialState
-      });
-      flush();
-
-      nameStore.updateState(s => ({ ...updatedState }));
-
-      expectObservable(nameUpdates2$).toBe(expectedTimeline2, {
-        b: updatedState
-      });
+      expectObservable(nameUpdates$).toBe(expected, { a: updatedState });
       flush();
 
       expect(lastValue).toEqual(updatedState);
+    });
+  });
+
+  it('selectState should return part of state', () => {
+    testScheduler.run(helpers => {
+      const testState = { testing: { a: 'a', b: 'b' } };
+      let lastValue;
+      const nameStore2 = new ObservableStore({...initialState, ...testState })
+      const testSelector$ = nameStore2
+        .selectState('testing')
+        .pipe(tap(x => lastValue = x));
+      const { expectObservable, flush } = helpers;
+      const expected = 'a-';
+
+      expectObservable(testSelector$).toBe(expected, {a: {a: 'a', b: 'b'}})
+      flush()
+
+      expect(lastValue).toEqual({ a: 'a', b: 'b'})
     });
   });
 });

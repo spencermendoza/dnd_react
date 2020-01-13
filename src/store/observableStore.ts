@@ -1,7 +1,8 @@
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { scan, pluck } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { distinctUntilKeyChanged, pluck, scan } from 'rxjs/operators';
 
 export class ObservableStore<T> {
+  private _initialState: T;
   private _store: BehaviorSubject<T>;
   private _stateUpdates: Subject<(state: T) => T | Partial<T>>;
 
@@ -10,6 +11,7 @@ export class ObservableStore<T> {
    * @param initialState
    */
   constructor(initialState: T) {
+    this._initialState = initialState;
     this._store = new BehaviorSubject(initialState);
     this._stateUpdates = new Subject();
     this._stateUpdates
@@ -32,8 +34,8 @@ export class ObservableStore<T> {
    * @description Subscribe to a part of the state store, by key.
    * @param stateKey A string that matches the name of the property containing the state to be subscribed to.
    */
-  selectState<K extends keyof T>(stateKey: K): Observable<T | T[K]> {
-    return this._store.pipe(pluck(stateKey));
+  selectState<K extends keyof T>(stateKey: K) {
+    return this._store.pipe(distinctUntilKeyChanged(stateKey), pluck(stateKey));
   }
 
   /**
@@ -44,7 +46,7 @@ export class ObservableStore<T> {
     return this._store.asObservable();
   }
 
-  updateState(action: (s: T) => T | Partial<T>): void {
+  updateState(action: (state: T) => T | Partial<T>): void {
     this._stateUpdates.next(action);
   }
 }
