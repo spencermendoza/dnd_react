@@ -1,33 +1,20 @@
-import React, { Component } from 'react';
-// import { PropTypes } from 'prop-types';
-// import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 
-class TurnTimer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isRunning: false,
-      elapsedTime: 0,
-      previousTime: 0
-    };
-  }
-
-  // handleStopWatch = () => {
-  //   this.setState(prevState => ({
-  //     isRunning: !prevState.isRunning
-  //   }));
-  //   if (!this.state.isRunning) {
-  //     this.setState({ previousTime: Date.now() });
-  //   }
-  // };
-
-  //   componentDidMount() {
-  //     this.intervalID = setInterval(() => this.tick(), 100);
-  //   }
-
-  render() {
-    return <div>{this.props.turnDuration}</div>;
-  }
-}
+// TODO: Figure out which css in js lib to use.
+// Which one would work nicely with Gestures and
+// spring?
+const TurnTimer = ({ children }) => {
+  return children ? (
+    children
+  ) : (
+    <div>
+      hi
+      <span>Hi</span>
+      <span>Hi</span>
+      <span>Hi</span>
+      <span>Hi</span>
+    </div>
+  );
+};
 
 export default TurnTimer;

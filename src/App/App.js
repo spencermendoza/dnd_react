@@ -1,73 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
-import { Player } from '../Player/Player';
 import PlayerCardList from '../Player/PlayerCardList';
 import PlayerFormDialog from '../Player/PlayerFormDialog';
-import PlayerSortMenu from '../Player/PlayerSortMenu';
-import { playersExample, updatePlayer } from '../Player/playerHelpers';
+import { PlayerSortMenu } from '../Player/PlayerSortMenu';
+import { PlayerConsumer } from '../Player/PlayerContext';
 import TurnTimer from '../TurnTimer/TurnTimer';
 
 import './App.css';
 
-class App extends Component {
-  state = {
-    players: playersExample.map(playerJson => Player.create(playerJson)),
-    dialog: {
-      open: false,
-      player: Player.create()
-    }
-  };
-
-  handleAddClick = () => {
-    const player = Player.create();
-    this.setState({ dialog: { player, open: true } });
-  };
-
-  handleEditClick = player => {
-    this.setState({ dialog: { player, open: true } });
-  };
-
-  handleDialogConfirmClick = player => {
-    const updatedPlayers = updatePlayer(this.state.players, player);
-    this.setState({ players: updatedPlayers, dialog: { open: false } });
-  };
-
-  handleDialogCancelClick = () => {
-    this.setState({ dialog: { player: Player.create(), open: false } });
-  };
-
-  render() {
-    const { open, player } = this.state.dialog;
-    const menuItems = [
-      {
-        displayText: 'Initiative Value',
-        sortFunction: (a, b) => {
-          console.log('a', a, 'b', b);
-        }
-      },
-      {
-        displayText: 'HP',
-        sortFunction: v => {
-          console.log('v', v);
-        }
-      }
-    ];
-
-    return (
-      <>
-        <PlayerSortMenu menuItems={menuItems} />
-        <PlayerCardList players={this.state.players} onEditClick={this.handleEditClick} />
-        <Button onClick={this.handleAddClick}>Add New Player</Button>
-        <TurnTimer turnDuration={5000} />
-        <PlayerFormDialog
-          open={open}
-          player={player}
-          onClose={this.handleDialogCancelClick}
-          onConfirm={this.handleDialogConfirmClick}
-        />
-      </>
-    );
-  }
-}
+const App = () => (
+  <>
+    <PlayerSortMenu />
+    <PlayerCardList />
+    <PlayerFormDialog />
+    <PlayerConsumer>
+      {({ handleAddClick, players }) => {
+        // turnStore.updateState(state => ({ ...state, players }));
+        return (
+          <>
+            <Button onClick={handleAddClick} store={turnStore}>
+              Add New Player
+            </Button>
+            <TurnTimer />
+          </>
+        );
+      }}
+    </PlayerConsumer>
+  </>
+);
 
 export default App;

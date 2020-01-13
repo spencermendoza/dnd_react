@@ -13,6 +13,7 @@ const useStyles = makeStyles({
   // TODO: Take a look at Mui docs -> System -> Flexbox.
   // and make sure that our styles are following their system.
   card: {
+    backgroundColor: '#fefefe',
     minWidth: 275,
     minHeight: 300,
     display: 'flex',
@@ -20,9 +21,11 @@ const useStyles = makeStyles({
     flexDirection: 'column'
   },
   title: {
-    color: 'pink',
-    borderBottom: '1px solid pink',
-    fontSize: 18
+    color: '#bada55',
+    borderBottom: '4px solid pink',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+    // fontSize: 18
   },
   content: {
     display: 'flex',
@@ -31,28 +34,31 @@ const useStyles = makeStyles({
   }
 });
 
-// TODO: Agree on using props as a parameter name
-//          function MyComponent(props) {                                  <--- I like this one
-//       OR destructuring the props object in the function signature to get parameter names.
-//          function MyComponent({propA, propB ... propZ}) {
-//
-const PlayerCard = ({ player, onEditClick }) => {
+// TODO: Find out if there is a performance benefit to splitting out the different props that
+// `player` contains.
+const PlayerCard = ({ player = {}, onEditClick = noop }) => {
   const { name, hp, armor, damage, initiative } = player;
   const classes = useStyles();
-  const handleEditClick = onEditClick ? onEditClick : noop;
   return (
     <Card className={classes.card}>
       <CardContent className={classes.content}>
-        <Typography variant="h1" className={classes.title} color="textSecondary" gutterBottom>
+        <Typography
+          variant="h1"
+          className={classes.title + ' name'}
+          color="textSecondary"
+          gutterBottom
+        >
           {name}
         </Typography>
-        <Typography>Init: {initiative}</Typography>
-        <Typography>Hp: {hp}</Typography>
-        <Typography>Armor: {armor}</Typography>
-        <Typography>Damage: {damage}</Typography>
+        <Typography className="initiative">Init: {initiative}</Typography>
+        <Typography className="hp">Hp: {hp}</Typography>
+        <Typography className="armor">Armor: {armor}</Typography>
+        <Typography className="damage">Damage: {damage}</Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => handleEditClick(player)}>Edit</Button>
+        <Button className="edit-button" onClick={() => onEditClick(player)}>
+          Edit
+        </Button>
       </CardActions>
     </Card>
   );
