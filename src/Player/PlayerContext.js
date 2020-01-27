@@ -4,7 +4,8 @@ import {
   FAKE_PLAYERS,
   updatePlayer,
   sortPlayersBy,
-  generateId
+  generateId,
+  togglePlayerActive
 } from './playerHelpers';
 
 const PlayerContext = React.createContext();
@@ -36,6 +37,12 @@ class PlayerProvider extends Component {
 
   handleSortMenuChange = ({ sortBy }) => {
     this.setState({ sortBy });
+  };
+
+  handleTogglePlayerActive = player => {
+    this.setState({
+      players: togglePlayerActive(this.state.players, player)
+    });
   };
 
   state = {

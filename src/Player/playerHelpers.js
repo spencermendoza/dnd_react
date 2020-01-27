@@ -78,3 +78,13 @@ export const sortPlayersBy = (list, prop) => [...list.sort(_sort(prop))];
  * @returns {number} id.
  */
 export const generateId = () => Math.floor(Math.random() * 100_000);
+
+export function togglePlayerActive(list, player) {
+  return list.map(p => {
+    if (p.id === player.id) {
+      return { ...player, active: !player.active };
+    } else {
+      return p;
+    }
+  });
+}

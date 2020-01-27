@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     color: '#bada55',
     borderBottom: '4px solid pink',
     overflow: 'hidden',
+
     textOverflow: 'ellipsis'
     // fontSize: 18
   },
@@ -36,7 +37,11 @@ const useStyles = makeStyles({
 
 // TODO: Find out if there is a performance benefit to splitting out the different props that
 // `player` contains.
-const PlayerCard = ({ player = {}, onEditClick = noop }) => {
+const PlayerCard = ({
+  player = {},
+  onEditClick = noop,
+  onToggleClick = noop
+}) => {
   const { name, hp, armor, damage, initiative } = player;
   const classes = useStyles();
   return (
@@ -56,6 +61,9 @@ const PlayerCard = ({ player = {}, onEditClick = noop }) => {
         <Typography className="damage">Damage: {damage}</Typography>
       </CardContent>
       <CardActions>
+        <a href="#" onClick={() => onToggleClick(player)}>
+          Click me! {player.active}
+        </a>
         <Button className="edit-button" onClick={() => onEditClick(player)}>
           Edit
         </Button>

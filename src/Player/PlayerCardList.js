@@ -8,11 +8,21 @@ import { sortPlayersBy } from './playerHelpers';
 // the passed in players... Is that this component's responsibility?
 // TODO: Find out a more efficient way of rendering sorted lists. Think about the timing of when the list needs to be re-sorted.
 export const PlayerCardList = () => {
-  const { players, handleEditClick, sortBy } = useContext(PlayerContext);
+  const {
+    players,
+    handleEditClick,
+    sortBy,
+    handleTogglePlayerActive
+  } = useContext(PlayerContext);
   return (
     <Box display="flex" flexDirection="column" justifyContent="center">
       {sortPlayersBy(players, sortBy).map(player => (
-        <PlayerCard player={player} key={player.id} onEditClick={handleEditClick} />
+        <PlayerCard
+          player={player}
+          key={player.id}
+          onEditClick={handleEditClick}
+          onToggleClick={handleTogglePlayerActive}
+        />
       ))}
     </Box>
   );
