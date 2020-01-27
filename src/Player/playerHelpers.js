@@ -9,7 +9,8 @@ export const FAKE_PLAYERS = [
     hp: 158,
     initiative: 18,
     damage: 72,
-    id: 1
+    id: 1,
+    active: false
   },
   {
     name: 'Balazar',
@@ -17,7 +18,8 @@ export const FAKE_PLAYERS = [
     hp: 127,
     initiative: 15,
     damage: 32,
-    id: 2
+    id: 2,
+    active: false
   },
   {
     name: 'Marsk',
@@ -25,7 +27,8 @@ export const FAKE_PLAYERS = [
     hp: 114,
     initiative: 7,
     damage: 56,
-    id: 3
+    id: 3,
+    active: false
   },
   {
     name: 'Barri',
@@ -33,7 +36,8 @@ export const FAKE_PLAYERS = [
     hp: 69,
     initiative: 14,
     damage: 12,
-    id: 4
+    id: 4,
+    active: false
   }
 ];
 
@@ -62,10 +66,7 @@ const _sort = prop => (a, b) => {
   if (a[prop] < b[prop]) return -1;
 };
 
-/**
- * sortPlayersBy
- *
- * sort a list of players by a prop.
+/* sort a list of players by a prop.
  *
  * @param {{name: string; id: number; hp: number; armor: number; damage: number; initiative: number;}[]} list - the list of players to sort.
  * @param {{name: string; id: number; hp: number; armor: number; damage: number; initiative: number;}} prop - property to sort the players by.

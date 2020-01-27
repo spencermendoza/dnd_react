@@ -18,9 +18,7 @@ const App = () => (
         // turnStore.updateState(state => ({ ...state, players }));
         return (
           <>
-            <Button onClick={handleAddClick} store={turnStore}>
-              Add New Player
-            </Button>
+            <Button onClick={handleAddClick}>Add New Player</Button>
             <TurnTimer />
           </>
         );
