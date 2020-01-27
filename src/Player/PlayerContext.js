@@ -12,7 +12,7 @@ const { Provider, Consumer } = PlayerContext;
 
 class PlayerProvider extends Component {
   handleAddClick = () => {
-    const player = player.create();
+    const player = Player.create();
     this.setState({ dialog: { player, open: true } });
   };
 
