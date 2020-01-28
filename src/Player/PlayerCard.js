@@ -18,7 +18,11 @@ const useStyles = makeStyles({
     minHeight: 300,
     display: 'flex',
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    padding: '2% 1%'
+    // border: '2px solid black',
+    // borderBottom: '1px solid black',
+    // borderTop: '1px solid black'
   },
   title: {
     color: '#bada55',
@@ -32,6 +36,18 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column'
+  },
+  activePlayer: {
+    border: '2px solid black',
+    borderBottom: '1px solid black',
+    borderTop: '1px solid black',
+    backgroundColor: '#fefefe',
+    minWidth: 275,
+    minHeight: 300,
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    padding: '2% 1%'
   }
 });
 
@@ -42,10 +58,16 @@ const PlayerCard = ({
   onEditClick = noop,
   onToggleClick = noop
 }) => {
-  const { name, hp, armor, damage, initiative } = player;
+  const { name, hp, armor, damage, initiative, active } = player;
   const classes = useStyles();
+  let isActive = '';
+  if (player.active === true) {
+    isActive = classes.activePlayer;
+  } else {
+    isActive = classes.card;
+  }
   return (
-    <Card className={classes.card}>
+    <Card className={isActive}>
       <CardContent className={classes.content}>
         <Typography
           variant="h1"

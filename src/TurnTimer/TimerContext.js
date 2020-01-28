@@ -9,4 +9,27 @@ class TimerProvider extends Component {
     minutes: 2,
     seconds: 0
   };
+
+  handleTimerFunction = () => {
+    this.myInterval = setInterval(() => {
+      const { seconds, minutes } = this.state;
+
+      if (seconds > 0) {
+        this.setState(({ seconds }) => ({
+          seconds: seconds - 1
+        }));
+      }
+
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(this.myInterval);
+        } else {
+          this.setState(({ minutes }) => ({
+            minutes: minutes - 1,
+            seconds: 59
+          }));
+        }
+      }
+    }, 1000);
+  };
 }
