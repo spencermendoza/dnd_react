@@ -60,10 +60,11 @@ const PlayerCard = ({
         <Typography className="armor">Armor: {armor}</Typography>
         <Typography className="damage">Damage: {damage}</Typography>
       </CardContent>
+
       <CardActions>
-        <a href="#" onClick={() => onToggleClick(player)}>
+        <Button onClick={() => onToggleClick(player)}>
           Click me! {player.active}
-        </a>
+        </Button>
         <Button className="edit-button" onClick={() => onEditClick(player)}>
           Edit
         </Button>

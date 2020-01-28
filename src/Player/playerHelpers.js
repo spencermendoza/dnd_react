@@ -61,9 +61,9 @@ export const updatePlayer = (list, player) =>
   list.map(p => (p.id === player.id ? player : p));
 
 const _sort = prop => (a, b) => {
-  if (a[prop] > b[prop]) return 1;
+  if (a[prop] > b[prop]) return -1;
   if (a[prop] === b[prop]) return 0;
-  if (a[prop] < b[prop]) return -1;
+  if (a[prop] < b[prop]) return 1;
 };
 
 /* sort a list of players by a prop.

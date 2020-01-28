@@ -46,7 +46,7 @@ class PlayerProvider extends Component {
   };
 
   state = {
-    sortBy: 'name',
+    sortBy: 'initiative',
     players: FAKE_PLAYERS,
     sortPlayersBy,
     handleAddClick: this.handleAddClick,
@@ -66,6 +66,14 @@ class PlayerProvider extends Component {
       {
         displayText: 'HP',
         sortBy: 'hp'
+      },
+      {
+        displayText: 'Armor',
+        sortBy: 'armor'
+      },
+      {
+        displayText: 'Damage',
+        sortBy: 'damage'
       }
     ]
   };
