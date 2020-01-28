@@ -54,6 +54,7 @@ class PlayerProvider extends Component {
     handleSortMenuChange: this.handleSortMenuChange,
     handleDialogCancelClick: this.handleDialogCancelClick,
     handleDialogConfirmClick: this.handleDialogConfirmClick,
+    handleTogglePlayerActive: this.handleTogglePlayerActive,
     dialog: {
       open: false,
       player: Player.create()

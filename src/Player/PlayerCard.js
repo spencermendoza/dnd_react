@@ -62,9 +62,7 @@ const PlayerCard = ({
       </CardContent>
 
       <CardActions>
-        <Button onClick={() => onToggleClick(player)}>
-          Click me! {player.active}
-        </Button>
+        <Button onClick={() => onToggleClick(player)}>Click me!</Button>
         <Button className="edit-button" onClick={() => onEditClick(player)}>
           Edit
         </Button>
