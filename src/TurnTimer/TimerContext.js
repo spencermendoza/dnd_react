@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-// import { FAKE_PLAYERS } from './playerHelpers';
+import { FAKE_PLAYERS, togglePlayerActive } from '../Player/playerHelpers';
 
 const TimerContext = React.createContext();
 const { Provider, Consumer } = TimerContext;
 
 class TimerProvider extends Component {
-  state = {
-    minutes: 2,
-    seconds: 0
-  };
-
   handleTimerFunction = () => {
     this.myInterval = setInterval(() => {
       const { seconds, minutes } = this.state;
@@ -32,4 +27,16 @@ class TimerProvider extends Component {
       }
     }, 1000);
   };
+
+  state = {
+    minutes: 2,
+    seconds: 0,
+    handleTimerFunction: this.handleTimerFunction
+  };
+
+  render() {
+    return <Provider value={this.state}>{this.props.children}</Provider>;
+  }
 }
+
+export { TimerContext, TimerProvider, Consumer as TimerConsumer };
