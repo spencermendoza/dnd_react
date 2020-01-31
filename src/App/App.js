@@ -9,6 +9,24 @@ import TurnTimer from '../TurnTimer/TurnTimer';
 
 import './App.css';
 
+// class App extends React.Componenet {
+//   render() {
+//     <PlayerSortMenu />
+//     <PlayerCardList />
+//     <PlayerFormDialog />
+//     <PlayerConsumer>
+//       {({ handleAddClick, players}) => {
+//         return (
+//           <>
+//             <Button onClick={handleAddClick}>Add New Player</Button>
+//             <TurnTimer />
+//           </>
+//         );
+//       }}
+//     </PlayerConsumer>
+//   }
+// }
+
 const App = () => (
   <>
     <PlayerSortMenu />
